@@ -1,14 +1,18 @@
 const { unzipValidFiles } = require("../service/unzip-valid-files");
 const { manipulateFiles } = require("../service/manipulate-files");
 
+
+const VALID_EXTENSION = '.jpg'
+
 const GeneratePdfByImageController = () => ({
   async handler(req, res) {
     if (!req.files) {
       return res.redirect(`/?msg="error"`);
     }
+  
     const files = await unzipValidFiles({
       fileZiped: req.files[0],
-      validExtension: ".jpg",
+      validExtension: VALID_EXTENSION,
     });
 
     const imagesSavedPath = await manipulateFiles.writeFiles(files);
